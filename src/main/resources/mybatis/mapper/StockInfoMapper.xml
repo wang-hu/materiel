@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nordson.materiel.mapper.StockInfoMapper">
+  <resultMap id="BaseResultMap" type="com.nordson.materiel.domain.StockInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="materiel_no" jdbcType="VARCHAR" property="materielNo" />
+    <result column="materiel_name" jdbcType="VARCHAR" property="materielName" />
+    <result column="stock_num" jdbcType="BIGINT" property="stockNum" />
+    <result column="total" jdbcType="BIGINT" property="total" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, materiel_no, materiel_name, stock_num, total
+  </sql>
+  <select id="queryStockCount" resultType="long" parameterType="stockInfo">
+    select count(1)
+    FROM t_stock
+    <where>
+      <if test="materielNo !=null and materielNo!=''">
+        materiel_no LIKE concat('%',#{materielNo},'%')
+      </if>
+      <if test="materielName !=null and materielName!=''">
+        and materiel_name LIKE concat('%',#{materielName},'%')
+      </if>
+    </where>
+  </select>
+
+  <select id="listStock" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />,
+    CASE WHEN total <![CDATA[  <= ]]> stock_num THEN stock_num-total ELSE 0 END num
+    FROM t_stock
+    <where>
+      <if test="record.materielNo !=null and record.materielNo!=''">
+        materiel_no LIKE concat('%',#{record.materielNo},'%')
+      </if>
+      <if test="record.materielName !=null and record.materielName!=''">
+        and materiel_name LIKE concat('%',#{record.materielName},'%')
+      </if>
+    </where>
+    ORDER BY num DESC
+    LIMIT #{page.index},#{page.pageSize}
+  </select>
+
+  <select id="listMaterielNoAndName" parameterType="string" resultType="map">
+    SELECT materiel_no id, concat(materiel_name,'(',materiel_no,') 库存:', total) text
+    FROM t_stock
+    <where>
+      <if test="materielInfo !=null and materielInfo!=''">
+        (materiel_no like concat('%', #{materielInfo, jdbcType=VARCHAR}, '%' ) or
+        materiel_name like concat('%', #{materielInfo, jdbcType=VARCHAR}, '%'))
+      </if>
+    </where>
+  </select>
+
+  <select id="queryStockByMaterielNo" parameterType="string" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM t_stock
+    WHERE materiel_no=#{materielNo}
+  </select>
+
+  <delete id="batchDeleteByPrimaryKeys">
+    delete from t_stock
+    WHERE id in
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+  <update id="updateTotalByMaterielNo" parameterType="stockInfo">
+    UPDATE t_stock SET total=#{total}
+    WHERE materiel_no=#{materielNo}
+  </update>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_stock
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_stock
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.nordson.materiel.domain.StockInfo">
+    insert into t_stock (id, materiel_no, materiel_name, 
+      stock_num, total)
+    values (#{id,jdbcType=BIGINT}, #{materielNo,jdbcType=VARCHAR}, #{materielName,jdbcType=VARCHAR}, 
+      #{stockNum,jdbcType=BIGINT}, #{total,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nordson.materiel.domain.StockInfo">
+    insert into t_stock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="materielNo != null">
+        materiel_no,
+      </if>
+      <if test="materielName != null">
+        materiel_name,
+      </if>
+      <if test="stockNum != null">
+        stock_num,
+      </if>
+      <if test="total != null">
+        total,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="materielNo != null">
+        #{materielNo,jdbcType=VARCHAR},
+      </if>
+      <if test="materielName != null">
+        #{materielName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null">
+        #{stockNum,jdbcType=BIGINT},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nordson.materiel.domain.StockInfo">
+    update t_stock
+    <set>
+      <if test="materielNo != null">
+        materiel_no = #{materielNo,jdbcType=VARCHAR},
+      </if>
+      <if test="materielName != null">
+        materiel_name = #{materielName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null">
+        stock_num = #{stockNum,jdbcType=BIGINT},
+      </if>
+      <if test="total != null">
+        total = #{total,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nordson.materiel.domain.StockInfo">
+    update t_stock
+    set materiel_no = #{materielNo,jdbcType=VARCHAR},
+      materiel_name = #{materielName,jdbcType=VARCHAR},
+      stock_num = #{stockNum,jdbcType=BIGINT},
+      total = #{total,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
