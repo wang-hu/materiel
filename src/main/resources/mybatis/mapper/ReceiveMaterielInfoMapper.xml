@@ -34,23 +34,24 @@
 
   <select id="listReceiveMateriel" resultMap="BaseResultMap">
     SELECT a.id,a.receiver,a.materiel_no,a.receive_num,a.receive_date,b.materiel_name
-    FROM t_receive_materiel a, t_stock b
-    where a.materiel_no=b.materiel_no
-    <if test="record.materielNo !=null and record.materielNo!=''">
-      and a.materiel_no LIKE concat('%',#{record.materielNo},'%')
-    </if>
-    <if test="record.receiver !=null and record.receiver!=''">
-      and a.receiver LIKE concat('%',#{record.receiver},'%')
-    </if>
-    <if test="record.materielName !=null and record.materielName!=''">
-      and b.materiel_name LIKE concat('%',#{record.materielName},'%')
-    </if>
-    <if test="record.startTime != null and record.startTime !=''">
-      AND a.receive_date &gt;= #{record.startTime}
-    </if>
-    <if test="record.endTime != null and record.endTime !=''">
-      AND a.receive_date &lt;= #{record.endTime}
-    </if>
+    FROM t_receive_materiel a left join t_stock b ON a.materiel_no=b.materiel_no
+    <where>
+      <if test="record.materielNo !=null and record.materielNo!=''">
+        and a.materiel_no LIKE concat('%',#{record.materielNo},'%')
+      </if>
+      <if test="record.receiver !=null and record.receiver!=''">
+        and a.receiver LIKE concat('%',#{record.receiver},'%')
+      </if>
+      <if test="record.materielName !=null and record.materielName!=''">
+        and b.materiel_name LIKE concat('%',#{record.materielName},'%')
+      </if>
+      <if test="record.startTime != null and record.startTime !=''">
+        AND a.receive_date &gt;= #{record.startTime}
+      </if>
+      <if test="record.endTime != null and record.endTime !=''">
+        AND a.receive_date &lt;= #{record.endTime}
+      </if>
+    </where>
     ORDER BY receive_date DESC
     LIMIT #{page.index},#{page.pageSize}
   </select>

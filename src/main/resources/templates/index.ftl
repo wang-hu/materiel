@@ -26,9 +26,9 @@
  <div class="Sellerber" id="Sellerber">
  <!--顶部-->
   <div class="Sellerber_header apex clearfix" id="Sellerber_header">
+   <span style="font-size: 1cm;letter-spacing:4pt;font-weight: bold;position: absolute">物料管理平台</span>
    <div class="l_f logo header">
-       <#--&nbsp;<h1>物料管理平台</h1>-->
-       <img src="/images/logo_03.png" />
+       <#--<img src="/images/logo_03.png" />-->
    </div>
    <div class="r_f Columns_top clearfix header">
       <#--<div class="search_style l_f">-->

@@ -36,8 +36,8 @@
 
   <select id="listIncomeMateriel" resultMap="BaseResultMap">
     SELECT a.id,a.materiel_no,a.income_num,a.income_date,b.materiel_name
-    FROM t_income_materiel a, t_stock b
-    where a.materiel_no=b.materiel_no
+    FROM t_income_materiel a left join t_stock b on a.materiel_no=b.materiel_no
+    <where>
       <if test="record.materielNo !=null and record.materielNo!=''">
         and a.materiel_no LIKE concat('%',#{record.materielNo},'%')
       </if>
@@ -50,6 +50,7 @@
       <if test="record.endTime != null and record.endTime !=''">
           AND income_date &lt;= #{record.endTime}
       </if>
+    </where>
     ORDER BY income_date DESC
     LIMIT #{page.index},#{page.pageSize}
   </select>
