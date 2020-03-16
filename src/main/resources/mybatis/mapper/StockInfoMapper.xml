@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.nordson.materiel.mapper.StockInfoMapper">
-  <resultMap id="BaseResultMap" type="com.nordson.materiel.domain.StockInfo">
+<mapper namespace="com.demo.springboot.mapper.StockInfoMapper">
+  <resultMap id="BaseResultMap" type="com.demo.springboot.domain.StockInfo">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="materiel_no" jdbcType="VARCHAR" property="materielNo" />
     <result column="materiel_name" jdbcType="VARCHAR" property="materielName" />
@@ -81,13 +81,13 @@
     delete from t_stock
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.nordson.materiel.domain.StockInfo">
+  <insert id="insert" parameterType="com.demo.springboot.domain.StockInfo">
     insert into t_stock (id, materiel_no, materiel_name, 
       stock_num, total)
     values (#{id,jdbcType=BIGINT}, #{materielNo,jdbcType=VARCHAR}, #{materielName,jdbcType=VARCHAR}, 
       #{stockNum,jdbcType=BIGINT}, #{total,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.nordson.materiel.domain.StockInfo">
+  <insert id="insertSelective" parameterType="com.demo.springboot.domain.StockInfo">
     insert into t_stock
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -124,7 +124,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.nordson.materiel.domain.StockInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.springboot.domain.StockInfo">
     update t_stock
     <set>
       <if test="materielNo != null">
@@ -142,7 +142,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.nordson.materiel.domain.StockInfo">
+  <update id="updateByPrimaryKey" parameterType="com.demo.springboot.domain.StockInfo">
     update t_stock
     set materiel_no = #{materielNo,jdbcType=VARCHAR},
       materiel_name = #{materielName,jdbcType=VARCHAR},

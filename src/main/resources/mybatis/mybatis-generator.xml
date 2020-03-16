@@ -18,7 +18,7 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!--生成Model类存放位置-->
-        <javaModelGenerator targetPackage="com.nordson.materiel.domain" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.demo.springboot.domain" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -27,7 +27,7 @@
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!--生成Dao类存放位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.nordson.materiel.mapper" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.demo.springboot.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--生成对应表及类名-->

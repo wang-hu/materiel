@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.nordson.materiel.mapper.IncomeMaterielInfoMapper">
-  <resultMap id="BaseResultMap" type="com.nordson.materiel.domain.IncomeMaterielInfo">
+<mapper namespace="com.demo.springboot.mapper.IncomeMaterielInfoMapper">
+  <resultMap id="BaseResultMap" type="com.demo.springboot.domain.IncomeMaterielInfo">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="materiel_no" jdbcType="VARCHAR" property="materielNo" />
     <result column="materiel_name" jdbcType="VARCHAR" property="materielName" />
@@ -67,13 +67,13 @@
     delete from t_income_materiel
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.nordson.materiel.domain.IncomeMaterielInfo">
+  <insert id="insert" parameterType="com.demo.springboot.domain.IncomeMaterielInfo">
     insert into t_income_materiel (id, materiel_no, income_num, 
       income_date)
     values (#{id,jdbcType=BIGINT}, #{materielNo,jdbcType=VARCHAR}, #{incomeNum,jdbcType=BIGINT}, 
       #{incomeDate,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.nordson.materiel.domain.IncomeMaterielInfo">
+  <insert id="insertSelective" parameterType="com.demo.springboot.domain.IncomeMaterielInfo">
     insert into t_income_materiel
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -104,7 +104,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.nordson.materiel.domain.IncomeMaterielInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.springboot.domain.IncomeMaterielInfo">
     update t_income_materiel
     <set>
       <if test="materielNo != null">
@@ -119,7 +119,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.nordson.materiel.domain.IncomeMaterielInfo">
+  <update id="updateByPrimaryKey" parameterType="com.demo.springboot.domain.IncomeMaterielInfo">
     update t_income_materiel
     set materiel_no = #{materielNo,jdbcType=VARCHAR},
       income_num = #{incomeNum,jdbcType=BIGINT},

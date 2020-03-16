@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.nordson.materiel.mapper.ReceiveMaterielInfoMapper">
-  <resultMap id="BaseResultMap" type="com.nordson.materiel.domain.ReceiveMaterielInfo">
+<mapper namespace="com.demo.springboot.mapper.ReceiveMaterielInfoMapper">
+  <resultMap id="BaseResultMap" type="com.demo.springboot.domain.ReceiveMaterielInfo">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="receiver" jdbcType="VARCHAR" property="receiver" />
     <result column="materiel_name" jdbcType="VARCHAR" property="materielName" />
@@ -64,7 +64,7 @@
     </foreach>
   </delete>
 
-  <insert id="insert" parameterType="com.nordson.materiel.domain.ReceiveMaterielInfo">
+  <insert id="insert" parameterType="com.demo.springboot.domain.ReceiveMaterielInfo">
     insert into t_receive_materiel (id, receiver, materiel_no, 
       receive_num, receive_date)
     values (#{id,jdbcType=BIGINT}, #{receiver,jdbcType=VARCHAR}, #{materielNo,jdbcType=VARCHAR}, 
