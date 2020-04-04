@@ -10,15 +10,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableTransactionManagement
 @MapperScan("com.demo.springboot.mapper")
-public class SpringBootAdminApplication extends SpringBootServletInitializer {
+public class MaterielApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootAdminApplication.class, args);
+		SpringApplication.run(MaterielApplication.class, args);
 	}
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(SpringBootAdminApplication.class);
+		return application.sources(MaterielApplication.class);
 	}
 
 }
