@@ -12,13 +12,13 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <!--数据库链接地址账号密码-->
-        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://localhost/materiel?serverTimezone=UTC" userId="root" password="123456">
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://localhost/springmvc?serverTimezone=UTC" userId="root" password="123456">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!--生成Model类存放位置-->
-        <javaModelGenerator targetPackage="com.demo.springboot.domain" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.demo.springboot.domain.security" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -31,21 +31,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--生成对应表及类名-->
-        <table tableName="t_stock" domainObjectName="StockInfo"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
-        <table tableName="t_receive_materiel" domainObjectName="ReceiveMaterielInfo"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
-        <table tableName="t_income_materiel" domainObjectName="IncomeMaterielInfo"
+        <table tableName="t_sys_authority" domainObjectName="Authority"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
