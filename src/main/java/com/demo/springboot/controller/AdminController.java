@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @since [产品/模块版本] （可选）
  */
 @Controller
-@RequestMapping("/index")
-public class IndexController {
+@RequestMapping("/")
+public class AdminController {
 
     @GetMapping("init")
     public String init() {
