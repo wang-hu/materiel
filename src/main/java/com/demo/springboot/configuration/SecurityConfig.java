@@ -40,7 +40,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.authorizeRequests()
-                .antMatchers("/").permitAll()
                 .antMatchers("/css/**",
                         "/font/**",
                         "/fonts/**",
@@ -49,12 +48,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/locale/**",
                         "/skin/**",
                         "/themes/**")
-                .permitAll() //默认不拦截静态资源的url pattern
-                .anyRequest().authenticated().and()
-//                .formLogin().loginPage("/login")// 登录url请求路径 (3)
-//                .defaultSuccessUrl("/init").permitAll().and() // 登录成功跳转路径url(4)
+                .permitAll().and() //默认不拦截静态资源的url pattern
+                .formLogin().loginPage("/login")// 登录url请求路径 (3)
+                .defaultSuccessUrl("/init").and() // 登录成功跳转路径url(4)
+                .authorizeRequests().antMatchers("/login").permitAll().and()
+
                 .logout().permitAll();
 
-        http.logout().logoutSuccessUrl("/login"); // 退出默认跳转页面 (5)
+//        http.logout().logoutSuccessUrl("/login"); // 退出默认跳转页面 (5)
     }
 }

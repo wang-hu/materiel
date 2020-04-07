@@ -19,4 +19,9 @@ public class AdminController {
     public String init() {
         return "index";
     }
+
+//    @GetMapping("login")
+//    public String login() {
+//        return "login";
+//    }
 }
