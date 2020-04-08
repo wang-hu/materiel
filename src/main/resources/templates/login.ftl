@@ -37,7 +37,7 @@
                 <div class="login-main">
                     <div class="clearfix">
                         <div class="login_icon"><img src="/images/login_img.png"/></div>
-                        <form class="" action="/login" method="post" style=" width:300px; float:right; margin-right:50px;">
+                        <form class="" id="form" action="/login" method="post" style=" width:300px; float:right; margin-right:50px;">
                             <h4 class="title_name"><img src="/images/login_title.png"/></h4>
                             <fieldset>
                                 <ul>
@@ -63,7 +63,7 @@
                                         <span class="lbl">保存密码</span>
                                     </label>
 
-                                    <button type="submit" class="login_btn" id="login_btn"> 登&nbsp;陆</button>
+                                    <button type="button" class="login_btn" id="login_btn"> 登&nbsp;陆</button>
                                 </div>
 
                                 <div class="space-4"></div>
@@ -93,17 +93,17 @@
     $('#login_btn').on('click', function () {
         var num = 0;
         var str = "";
-        // $("input[type$='text'],input[type$='password']").each(function (n) {
-        //     if ($(this).val() == "") {
-        //
-        //         layer.alert(str += "" + $(this).attr("data-name") + "を入力してください!", {
-        //             title: '提示框',
-        //             icon: 0,
-        //         });
-        //         num++;
-        //         return false;
-        //     }
-        // });
+        $("input[type$='text'],input[type$='password']").each(function (n) {
+            if ($(this).val() == "") {
+
+                layer.alert(str += "" + $(this).attr("data-name") + "を入力してください!", {
+                    title: '提示框',
+                    icon: 0,
+                });
+                num++;
+                return false;
+            }
+        });
         if (num > 0) {
             return false;
         } else {
@@ -111,10 +111,10 @@
                 title: '提示框',
                 icon: 1,
             });
-            location.href = "/init";
-            layer.close(index);
+            $("#form").submit();
         }
     });
+
     $(document).ready(function () {
         $("input[type='text'],input[type='password']").blur(function () {
             var $el = $(this);

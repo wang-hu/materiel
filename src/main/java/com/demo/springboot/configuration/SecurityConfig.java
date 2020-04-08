@@ -1,6 +1,7 @@
 package com.demo.springboot.configuration;
 
 import com.demo.springboot.security.MyUserDetailsService;
+import com.demo.springboot.security.MyUsernamePasswordAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -37,23 +38,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-
-        http.authorizeRequests()
-                .antMatchers("/css/**",
+        http.addFilter(new MyUsernamePasswordAuthenticationFilter())
+                .authorizeRequests().antMatchers("/css/**",
                         "/font/**",
                         "/fonts/**",
                         "/images/**",
                         "/js/**",
                         "/locale/**",
                         "/skin/**",
-                        "/themes/**")
-                .permitAll().and() //默认不拦截静态资源的url pattern
-                .formLogin().loginPage("/login")// 登录url请求路径 (3)
-                .defaultSuccessUrl("/init").and() // 登录成功跳转路径url(4)
-                .authorizeRequests().antMatchers("/login").permitAll().and()
-
-                .logout().permitAll();
+                        "/themes/**").permitAll()
+                .anyRequest().authenticated()
+                .and().formLogin().loginPage("/loginIndex").loginProcessingUrl("/login").successForwardUrl("/init")
+                .failureForwardUrl("/error").permitAll()
+                .and().logout().permitAll()
+                .and().csrf().disable();
 
 //        http.logout().logoutSuccessUrl("/login"); // 退出默认跳转页面 (5)
     }
