@@ -27,6 +27,11 @@ public class AdminController {
 
     @GetMapping("error")
     public String error() {
-        return "error.ftl";
+        return "error";
+    }
+
+    @GetMapping("home")
+    public String home() {
+        return "home";
     }
 }

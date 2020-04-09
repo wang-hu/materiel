@@ -2,7 +2,7 @@ package com.demo.springboot.security;
 
 import com.demo.springboot.domain.security.UserInfo;
 import com.demo.springboot.mapper.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.demo.springboot.utils.SpringContextUtils;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,8 +22,12 @@ public class MyUsernamePasswordAuthenticationFilter extends UsernamePasswordAuth
 
     Logger logger = Logger.getLogger("com.shuyang.sys.security.MyUsernamePasswordAuthenticationFilter");
 
-    @Autowired
     private UserMapper userMapper;
+
+    public MyUsernamePasswordAuthenticationFilter() {
+        super();
+        userMapper = (UserMapper) SpringContextUtils.getBean("userMapper");
+    }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -37,7 +41,7 @@ public class MyUsernamePasswordAuthenticationFilter extends UsernamePasswordAuth
 
         username = username.trim();
 
-        UserInfo userInfo = userMapper.selectByLoginName(username.trim());
+        UserInfo userInfo = userMapper.selectByLoginName(username);
 
         if (userInfo == null || !password.equals(userInfo.getUserPassword())) {
             logger.warning("用户名或者密码错误！");
